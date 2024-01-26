@@ -55,16 +55,14 @@
 	<!-- RODA PÉ DA PAGINA -->
 	<footer class="text-center fixed-bottom mt-5" th:fragment="footer">
 		<div class="container-fluid">
-			<div class="row justify-content-end my-2 mt-5">
+			<div class="row justify-content-end my-3 mt-5">
 				<!-- BOTÃO VOLTAR -->
 				<!-- 
-             o atributo th:if verifica se a URL da requisição não é igual a http://localhost:8080/. Se essa condição for verdadeira, o botão "Voltar" será renderizado; caso 
+             o atributo th:if verifica se a URL da requisição não é igual a https://sibre2023.com.br/ ou http://localhost:8080/. Se essa condição for verdadeira, o botão "Voltar" será renderizado; caso 
              contrário, ele será ignorado.
              -->
-				<button
-					th:if="${#httpServletRequest.requestURL.toString() ne 'http://localhost:8080/'}"
-					class="btn btn-success" onclick="window.history.back()">Voltar</button>
-			</div>
+			<button th:unless="${#httpServletRequest.requestURL.toString().endsWith('https://sibre2023.com.br/') or #httpServletRequest.requestURL.toString().endsWith('http://localhost:8080/')}"
+        class="btn btn-success mr-2" onclick="window.history.back()">Voltar</button>				
 		</div>
 
 		<div class="bg-dark text-center text-white">
