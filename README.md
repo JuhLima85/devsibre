@@ -45,7 +45,7 @@ Na rais do diretorio execute o comando a abaixo gerar imagem e o banco via conta
 ![Tela Minstérios](https://github.com/JuhLima85/devsibre/assets/89745459/0894cc73-a5f1-435d-bc29-e6b2effa63a8)
 
 ## TELA CADASTRO
-![Tela Cadastro](https://github.com/JuhLima85/devsibre/assets/89745459/0a3bdd90-46af-47a0-87d2-fc0da66c997e)
+![Tela Cadastro](https://github.com/JuhLima85/devsibre/assets/89745459/bc1db9eb-5495-4514-8618-00b43712948c)
 
 ## TELA DE COBRANÇA
 ![Tela de Cobrança](https://github.com/Ernilson/devsibre/assets/30840118/97b8d018-9853-4e68-bfaf-89e5a694afbc)

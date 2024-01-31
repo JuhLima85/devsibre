@@ -277,16 +277,6 @@ public class FormularioControl {
 		}
 	}
 
-//	@GetMapping(value = "/pdf")
-//	public void createPdf(HttpServletRequest request, HttpServletResponse response) {
-//		List<Formulario> cad = service.listAll();
-//		boolean isFlag = cadreport.creatPdf(cad, context, request, response);
-//		if (isFlag) {
-//			String fullPath = request.getServletContext().getRealPath("/resources/reports/" + "cad" + ".pdf");
-//			filedownload(fullPath, response, "cad.pdf");
-//		}
-//	}
-
 	@GetMapping(value = "/Exls")
 	public void createExcel(HttpServletRequest request, HttpServletResponse response) {
 		List<Formulario> cad = service.listAll();
