@@ -43,11 +43,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET,"/lista_patrimonio").hasRole("ADMIN")
 				.antMatchers(HttpMethod.GET,"/listacantina").hasRole("ADMIN")
 				.antMatchers(HttpMethod.POST,"/listacantina").hasRole("ADMIN")
+				.antMatchers(HttpMethod.POST,"/editsave").permitAll()
 				.antMatchers(HttpMethod.GET,"/familia").permitAll()
+
 				//.antMatchers(HttpMethod.POST,"/listacantina").hasRole("USER")
 				.antMatchers("/images/**").permitAll()
 				.anyRequest().authenticated()
-				.and().formLogin().loginPage("/entrar").permitAll() // página padrão se efetuou o login
+				.and().formLogin()
+				.loginPage("/entrar")  // Página de login personalizada
+				.defaultSuccessUrl("/bem_vindo", true)  // Página para redirecionar após login bem-sucedido
+				.permitAll()
 				.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/entrar"); // página padrão após fazer o logout
 
 	}

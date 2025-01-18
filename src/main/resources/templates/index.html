@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout/template :: head">
-<title>Home</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Home</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-	<header th:replace="layout/template :: header"></header>
-	<div class="image-container text-center mb-5">		
-		<img th:src="@{/images/logo.png}" alt="Logo SIBRE" />	
-	</div>	
-	
-	<div class="custom-container mt-5">
-		<div class="text-center">
-			<h3>A Deus toda honra e toda a glória!!!</h3>
-			<h4 class="mt-4">
-				<a href=/agendas_User>Ministérios</a>
-			</h4>
-		</div>
+<header th:replace="layout/template :: header"></header>
+<div class="image-container text-center mb-5">
+	<img th:src="@{/images/logo.png}" alt="Logo SIBRE" />
+</div>
+
+<div class="custom-container mt-5">
+	<!-- Se o usuário não estiver autenticado, exibe a mensagem de login -->
+	<div class="text-center" >
+		<h3>Área Administrativa</h3>
+		<h4 class="mt-4" th:if="${!isAuthenticated}">
+			Entre com seu usuário e senha para acessar.
+		</h4>
+		<h4 class="mt-4" th:if="${isAuthenticated}">
+			Usuário logado.
+		</h4>
 	</div>
+
+</div>
 </body>
 <style>
 .custom-container {

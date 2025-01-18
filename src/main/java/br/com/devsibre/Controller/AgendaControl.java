@@ -6,7 +6,9 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.com.devsibre.Service.Inteface.AgendaService;
 import br.com.devsibre.Domain.Entity.Agenda;
+import br.com.devsibre.Service.Inteface.AgendaService;
+
+import static br.com.devsibre.UtilsReports.ModelAuthentication_Report.addAuthenticationStatusToModel;
 
 @Controller
 public class AgendaControl {
@@ -24,19 +28,28 @@ public class AgendaControl {
 	@Autowired
 	private AgendaService Pservice;
 
+	@GetMapping("/")
+	public String home(Model model, Authentication authentication) {
+		addAuthenticationStatusToModel(model, authentication);
+		return "index";
+	}
+		
 	@RequestMapping(method = RequestMethod.GET, path = "/entrar")
-	public String entrar() {
+	public String entrar(Model model, Authentication authentication) {
+		addAuthenticationStatusToModel(model, authentication);
 		return "entrar";
 	}
 
-	@GetMapping({"/index" })
-	public String Incio() {
-		return "index";
+	@GetMapping({ "/bem_vindo" })
+	public String Incio(Model model, Authentication authentication) {
+		addAuthenticationStatusToModel(model, authentication);
+		return "bem_vindo";
 	}
-
+	
 	// Metodo para listar posts da agenda sem Edição
 	@RequestMapping(value = "/agendas", method = RequestMethod.GET)
-	public ModelAndView getAgenda() {
+	public ModelAndView getAgenda(Model model, Authentication authentication) {
+		addAuthenticationStatusToModel(model, authentication);
 		ModelAndView mv = new ModelAndView("agenda.html");
 		List<Agenda> agendas = Pservice.listAll();
 		mv.addObject("agenda", agendas);
@@ -45,7 +58,8 @@ public class AgendaControl {
 
 	// Metodo para listar posts da agenda sem Edição
 	@RequestMapping(value = "/agendas_User", method = RequestMethod.GET)
-	public ModelAndView getAgenda_User() {
+	public ModelAndView getAgenda_User(Model model, Authentication authentication) {
+		addAuthenticationStatusToModel(model, authentication);
 		ModelAndView mv = new ModelAndView("agenda_User.html");
 		List<Agenda> agendas = Pservice.listAll();
 		mv.addObject("agenda", agendas);
@@ -54,7 +68,8 @@ public class AgendaControl {
 
 	// Admin
 	@RequestMapping(value = "/agendas/{id}", method = RequestMethod.GET)
-	public ModelAndView getAgendaDetails(@PathVariable("id") long id) {
+	public ModelAndView getAgendaDetails(@PathVariable("id") long id, Model model, Authentication authentication) {
+		addAuthenticationStatusToModel(model, authentication);
 		ModelAndView mv = new ModelAndView("agendaDetails.html");
 		Agenda agenda = Pservice.getById(id);
 		mv.addObject("agenda", agenda);
@@ -63,7 +78,8 @@ public class AgendaControl {
 
 	// User
 	@RequestMapping(value = "/agendas_User/{id}", method = RequestMethod.GET)
-	public ModelAndView getAgendaDetails_User(@PathVariable("id") long id) {
+	public ModelAndView getAgendaDetails_User(@PathVariable("id") long id, Model model, Authentication authentication) {
+		addAuthenticationStatusToModel(model, authentication);
 		ModelAndView mv = new ModelAndView("agendaDetails_User.html");
 		Agenda agenda = Pservice.getById(id);
 		mv.addObject("agenda", agenda);
@@ -71,12 +87,14 @@ public class AgendaControl {
 	}
 
 	@RequestMapping(value = "/newagenda", method = RequestMethod.GET)
-	public String getAgendaForm() {
+	public String getAgendaForm(Model model, Authentication authentication) {
+		addAuthenticationStatusToModel(model, authentication);
 		return "agendaForm";
 	}
 
 	@RequestMapping(value = "/newagenda", method = RequestMethod.POST)
-	public String saveAgenda(@Valid Agenda agendas, BindingResult result, RedirectAttributes attributes) {
+	public String saveAgenda(@Valid Agenda agendas, BindingResult result, RedirectAttributes attributes, Model model, Authentication authentication) {
+		addAuthenticationStatusToModel(model, authentication);
 		if (result.hasErrors()) {
 			attributes.addFlashAttribute("mensagem", "Verifique se os campos obrigatórios foram preenchidos!");
 			return "redirect:/newagenda";
@@ -89,7 +107,8 @@ public class AgendaControl {
 
 //   Metodo para excluir dados do cadastro
 	@GetMapping("/remover/{id}")
-	public String excluir(@PathVariable long id) {
+	public String excluir(@PathVariable long id, Model model, Authentication authentication) {
+		addAuthenticationStatusToModel(model, authentication);
 		Pservice.delete(id);
 		return "redirect:/agendas";
 	}
