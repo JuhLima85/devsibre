@@ -253,8 +253,10 @@ public class FormularioControl {
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("mensagem_error", "Erro ao atualizar!");
+			model.addAttribute("cad", emp);
 		}
-		return "redirect:/edita_Cadastro";
+		model.addAttribute("cad", emp);
+		return "edita_Cadastro";
 	}
 	
 	@GetMapping("/pdf")
